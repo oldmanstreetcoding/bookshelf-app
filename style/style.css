@@ -22,8 +22,7 @@ header {
 }
 
 #header_wrapper {
-    width: 60%;
-    margin: auto;
+    text-align: center;
 }
 
 #header_brand {
@@ -32,7 +31,7 @@ header {
 }
 
 #brand_title {
-    font-size: 1.6em;
+    font-size: 1.8em;
     font-weight: bold;
 }
 
@@ -69,12 +68,12 @@ main {
 #message-owner {
     font-style: italic;
     color: grey;
-    font-size: 14px;
+    font-size: 12pt;
     margin-bottom: 10px;
 }
 
 .input-group {
-    width: 50vw;
+    width: 45vw;
     display: table;
     border-collapse: collapse;
     margin: auto;
@@ -99,7 +98,7 @@ main {
     padding: 8px;
     height: 40px;
     border-radius: 5px;
-    border: 2px solid tomato;
+    border: 2px solid #51C4D3;
     text-align: center;
 }
 
@@ -123,11 +122,73 @@ main {
 
 #box-shelf {
     text-align:center;
+    margin-top: 10px;
+}
+
+.glass-shelf {
+    margin-top: -30px;
+}
+
+.title-shelf {
+    font-size: 13pt;
+    margin:auto;
+    margin-bottom: 5px;
+    width: 180px;
+    padding: 3px;
+    border-radius: 5px;
+    color: white;
 }
 
 .img-shelf {
-    margin-top: 140px;
     width: 85%;
+}
+
+.shelf {
+    width: 70%;
+    height: 135px;
+    margin:auto;
+    overflow: hidden;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.inner-shelf {
+    overflow-x: scroll;
+    height: 125%;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    gap: 20px;
+}
+
+.wrap-book {
+    display: grid;
+    grid-template-columns: 10px 80px;
+    width: 90px;
+    height: 115px;
+    background-color:tomato;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #888;
+    margin: auto;
+}
+
+.book-edge {
+    border-right: 1px solid grey;
+    background-color: grey;
+    border-radius: 5px 0 0 5px;
+}
+
+.book-cover {
+    padding: 10px;
+    color: white;
+}
+
+.book-title {
+    margin-bottom: 15px;
+}
+
+.book-author {
+    font-size: 9pt;
 }
 
 /*
@@ -143,7 +204,7 @@ footer {
     text-align: center;
     padding: 12px;
     color: white;
-    font-size: 16px;
+    font-size: 16pt;
 }
 
 /*
@@ -159,7 +220,7 @@ footer {
     color: white;
     padding: 10px;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 15pt;
     opacity: 0;
     transition: opacity 0.8s;
 }
