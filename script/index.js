@@ -1,11 +1,15 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/extensions */
+import DOM from './dom.js';
+import Utils from './utils.js';
+
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('hero-search').focus();
+  Utils.focusInput('txsearch');
 
-  const btnAddBook = document.getElementById('btn-add-book');
-  const boxInput = document.getElementById('box-modal');
+  DOM.openFormAddBook();
+  DOM.closeFormAddBook();
+  DOM.resetFormAddBook();
+  DOM.submitFormAddBook();
 
-  btnAddBook.addEventListener('click', () => {
-    boxInput.style.display = 'block';
-  });
+  DOM.loadDataStorage();
 });

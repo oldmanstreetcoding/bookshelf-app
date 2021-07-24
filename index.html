@@ -42,11 +42,13 @@
                 <div id="message-owner">" The more you read, The more you forget "</div>
                 <div class="input-group">
                     <div class="input-group-area">
-                        <input id="hero-search" type="text" placeholder="You Can Search Your Book Here">
+                        <form id="form-search" action="#">
+                            <input id="txsearch" type="text" placeholder="You Can Search Your Book Here">
+                        </form>
                     </div>
                     <div class="input-group-icon">
                         <button id="btn-add-book" title="Add Book">
-                            <img id="img-add-book" src="assets/icons/plus.png" alt="add" />
+                            <img id="img-add-book" src="assets/icons/plus.png" alt="addbook" />
                         </button>
                     </div>
                 </div>
@@ -54,261 +56,69 @@
 
             <section id="box-shelf">
                 <article>
-                    <p class="title-shelf" style="background-color: #51C4D3;">- Favorite Books -</p>
+                    <p class="title-shelf" style="background-color: purple;"> &middot; Buku Favorite &middot; </p>
                     <div class="shelf">
-                        <div class="inner-shelf">
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="inner-shelf" id="favorite-shelf"></div>
                     </div>
                     <img class="img-shelf" src="assets/images/shelf_wood.png" alt="shelfwood" />
                 </article>
 
                 <article class="glass-shelf">
-                    <p class="title-shelf" style="background-color: tomato;">- Unread Books -</p>
+                    <p class="title-shelf" style="background-color: tomato;"> &middot; Belum Selesai Dibaca &middot; </p>
                     <div class="shelf">
-                        <div class="inner-shelf">
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="inner-shelf" id="unread-shelf"></div>
                     </div>
                     <img class="img-shelf" src="assets/images/shelf_glass.png" alt="shelfglass" />
                 </article>
 
-                <article class="glass-shelf">
-                    <p class="title-shelf" style="background-color: green;">- Read Books -</p>
+                <article class="glass-shelf" style="margin-bottom: 10px;">
+                    <p class="title-shelf" style="background-color: green;"> &middot; Selesai Dibaca &middot; </p>
                     <div class="shelf">
-                        <div class="inner-shelf">
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                            <div class="wrap-book">
-                                <div class="book-edge"></div>
-                                <div class="book-cover">
-                                    <div class="book-title">Davinci Code</div>
-                                    <div class="book-author">Leonardo Da Vinci</div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="inner-shelf" id="hasread-shelf"></div>
                     </div>
                     <img class="img-shelf" src="assets/images/shelf_glass.png" alt="shelfglass" />
+                </article>
+
+                <article id="box-form-input">
+                    <h1 id="form-title">Add New Book</h1>
+                    <div id="box-form">
+                        <form id="form-book" action="#">
+                            <input class="form-value" type="hidden" id="id" />
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="title">Title *</label><br/>
+                                <input class="form-input form-value" type="text" id="title" required/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="author">Author *</label><br/>
+                                <input class="form-input form-value" type="text" id="author" required/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="year">Year *</label><br/>
+                                <input class="form-input form-value" type="number" id="year" maxlength="4" required/>
+                            </div>
+                            <div class="form-group-checkbox">
+                                <div>
+                                    <input class="form-checkbox form-value" type="checkbox" id="isfavorite" /> Favorite
+                                </div>
+                                <div>
+                                    <input class="form-checkbox form-value" type="checkbox" id="iscomplete" /> Complete 
+                                </div>
+                            </div>
+                            <hr class="form-divider"/>
+                            <div class="form-group-button">
+                                <div>
+                                    <button class="btn-Form" type="button" id="btnCancel">Cancel</button>
+                                </div>
+                                <div>
+                                    <input class="btn-Form" type="reset" value="Reset" id="btnReset"/>
+                                </div>
+                                <div>
+                                    <input class="btn-Form" type="submit" value="Submit" id="btnSubmit"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </article>
             </section>
         
@@ -317,8 +127,6 @@
         <footer>
             Bookshelf &#169; 2021 &middot; StreetCoding
         </footer>
-
-        <section id="box-modal"></section>
 
         <div id="toast-message"></div>
 
