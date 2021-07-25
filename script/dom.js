@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-plusplus */
-/* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-use-before-define */
@@ -12,6 +11,22 @@ import DATA from './data.js';
 import Utils from './utils.js';
 
 const formBook = document.getElementById('form-book');
+
+const makeDialog = (info, type, id) => `<article id="box-dialog">
+    <p id="title-dialog">${info}</p>
+    <hr/>
+    <div class="btn-group-confirm">
+      <button class="btn-confirm" id="btn-cancel-confirm">No</button>
+      <button class="btn-confirm btn-ok-confirm" id="${id}-${type}">Yes</button>
+    </div>
+  </article>`;
+
+// const closeModalDialog = () => {
+//   const boxModal = document.querySelector('#boxmodal');
+//   boxModal.addEventListener('click', () => {
+//     Utils.toggleShowItem('boxmodal', false);
+//   });
+// };
 
 const openFormAddBook = () => {
   const btnAddBook = document.querySelector('#btn-add-book');
@@ -72,6 +87,9 @@ const showUpdateBook = () => {
 
   for (const book of updateBooks) {
     book.addEventListener('click', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+
       const bookId = book.id.split('-');
       const id = bookId[0];
 
@@ -94,11 +112,111 @@ const showUpdateBook = () => {
           input.value = arrData[input.id];
         }
       }
-
-      event.stopPropagation();
-      event.preventDefault();
     });
   }
+};
+
+const okFavoriteBook = (id) => {
+  const books = DATA.getData();
+
+  let arrId;
+  books.map((data, index) => {
+    if (data.id === parseInt(id)) {
+      arrId = index;
+    }
+  });
+
+  const favStatus = books[arrId].isfavorite;
+
+  books[arrId].isfavorite = !favStatus;
+
+  localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
+
+  loadDataStorage('all');
+
+  Utils.toggleToast('success', favStatus ? 'Remove Favorite Book Succesfully' : 'Set New Favorite Book');
+};
+
+const okCompleteBook = (id) => {
+  const books = DATA.getData();
+
+  let arrId;
+  books.map((data, index) => {
+    if (data.id === parseInt(id)) {
+      arrId = index;
+    }
+  });
+
+  const comStatus = books[arrId].iscomplete;
+
+  books[arrId].iscomplete = !comStatus;
+
+  localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
+
+  loadDataStorage('all');
+
+  Utils.toggleToast('success', comStatus ? 'The Book Has Moved to UnRead Shelf Succesfully' : 'The Book Has Moved to HasRead Shelf Succesfully');
+};
+
+const okDeleteBook = (id) => {
+  const books = DATA.getData();
+
+  let arrId;
+  books.map((data, index) => {
+    if (data.id === parseInt(id)) {
+      arrId = index;
+    }
+  });
+
+  books.splice(arrId, 1);
+
+  localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
+
+  loadDataStorage('all');
+
+  Utils.toggleToast('success', 'Data Has Deleted Succesfully');
+};
+
+const agreeConfirm = () => {
+  const btnConfirm = document.querySelectorAll('.btn-ok-confirm');
+  for (const btn of btnConfirm) {
+    btn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+
+      const confirmData = btn.id.split('-');
+      const id = confirmData[0];
+      const type = confirmData[1];
+
+      Utils.toggleShowItem('boxmodal', false);
+
+      if (type === 'delete') {
+        okDeleteBook(id);
+      } else if (type === 'complete') {
+        okCompleteBook(id);
+      } else if (type === 'favorite') {
+        okFavoriteBook(id);
+      }
+    });
+  }
+};
+
+const cancelConfirm = () => {
+  const btnCancel = document.querySelector('#btn-cancel-confirm');
+  btnCancel.addEventListener('click', (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    Utils.toggleShowItem('boxmodal', false);
+  });
+};
+
+const openModalDialog = (info, type, id) => {
+  Utils.toggleShowItem('boxmodal', true);
+  document.querySelector('#boxmodal').innerHTML = makeDialog(info, type, id);
+
+  cancelConfirm();
+
+  agreeConfirm();
 };
 
 const deleteBook = () => {
@@ -106,31 +224,14 @@ const deleteBook = () => {
 
   for (const book of deleteBooks) {
     book.addEventListener('click', (event) => {
-      const bookId = book.id.split('-');
-      const id = bookId[0];
-
-      const strconfirm = confirm('Do You Want to Delete This Book From All Book Shelf ?');
-      if (strconfirm) {
-        const books = DATA.getData();
-
-        let arrId;
-        books.map((data, index) => {
-          if (data.id === parseInt(id)) {
-            arrId = index;
-          }
-        });
-
-        books.splice(arrId, 1);
-
-        localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
-
-        loadDataStorage('all');
-
-        Utils.toggleToast('success', 'Data Has Deleted Succesfully');
-      }
-
       event.stopPropagation();
       event.preventDefault();
+
+      const bookId = book.id.split('-');
+      const id = bookId[0];
+      const txinfo = 'Do You Want to Delete This Book From All Book Shelf ?';
+
+      openModalDialog(txinfo, 'delete', id);
     });
   }
 };
@@ -140,39 +241,19 @@ const completeBook = () => {
 
   for (const book of completeBooks) {
     book.addEventListener('click', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+
       const bookId = book.id.split('-');
       const id = bookId[0];
       const comStatus = bookId[1] === 'unread';
-      let nextStep = true;
+      const txinfo = 'Do You Want to Remove This Book From Has Read Book Shelf ?';
 
       if (comStatus) {
-        const strconfirm = confirm('Do You Want to Remove This Book From Has Read Book Shelf ?');
-        if (!strconfirm) {
-          nextStep = false;
-        }
+        openModalDialog(txinfo, 'complete', id);
+      } else {
+        okCompleteBook(id);
       }
-
-      if (nextStep) {
-        const books = DATA.getData();
-
-        let arrId;
-        books.map((data, index) => {
-          if (data.id === parseInt(id)) {
-            arrId = index;
-          }
-        });
-
-        books[arrId].iscomplete = !comStatus;
-
-        localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
-
-        loadDataStorage('all');
-
-        Utils.toggleToast('success', comStatus ? 'The Book Has Moved to UnRead Shelf Succesfully' : 'The Book Has Moved to HasRead Shelf Succesfully');
-      }
-
-      event.stopPropagation();
-      event.preventDefault();
     });
   }
 };
@@ -182,39 +263,19 @@ const favoriteBook = () => {
 
   for (const book of favBooks) {
     book.addEventListener('click', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+
       const bookId = book.id.split('-');
       const id = bookId[0];
       const favStatus = bookId[1] === 'unlike';
-      let nextStep = true;
+      const txinfo = 'Do You Want to Remove This Book From Your Favorite ?';
 
       if (favStatus) {
-        const strconfirm = confirm('Do You Want to Remove This Book From Your Favorite ?');
-        if (!strconfirm) {
-          nextStep = false;
-        }
+        openModalDialog(txinfo, 'favorite', id);
+      } else {
+        okFavoriteBook(id);
       }
-
-      if (nextStep) {
-        const books = DATA.getData();
-
-        let arrId;
-        books.map((data, index) => {
-          if (data.id === parseInt(id)) {
-            arrId = index;
-          }
-        });
-
-        books[arrId].isfavorite = !favStatus;
-
-        localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
-
-        loadDataStorage('all');
-
-        Utils.toggleToast('success', favStatus ? 'Remove Favorite Book Succesfully' : 'Set New Favorite Book');
-      }
-
-      event.stopPropagation();
-      event.preventDefault();
     });
   }
 };
