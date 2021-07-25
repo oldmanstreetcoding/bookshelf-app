@@ -153,19 +153,25 @@ const okCompleteBook = (id) => {
 
 const okDeleteBook = (id) => {
   const books = DATA.getData();
+  const ndata = books.length;
 
-  let arrId;
-  books.map((data, index) => {
-    if (data.id === parseInt(id)) {
-      arrId = index;
-    }
-  });
+  if (ndata === 1) {
+    localStorage.removeItem(DATA.STORAGE_KEY);
+    location.reload();
+  } else {
+    let arrId;
+    books.map((data, index) => {
+      if (data.id === parseInt(id)) {
+        arrId = index;
+      }
+    });
 
-  books.splice(arrId, 1);
+    books.splice(arrId, 1);
 
-  localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
+    localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
 
-  loadDataStorage('all');
+    loadDataStorage('all');
+  }
 
   Utils.toggleToast('success', 'Data Has Deleted Succesfully');
 };
@@ -189,6 +195,8 @@ const agreeConfirm = () => {
         okCompleteBook(id);
       } else if (type === 'favorite') {
         okFavoriteBook(id);
+      } else if (type === 'addnewdata') {
+        Utils.focusInput('title');
       }
     });
   }
@@ -231,7 +239,7 @@ const deleteBook = () => {
 
       const bookId = book.id.split('-');
       const id = bookId[0];
-      const txinfo = 'Do You Want to Delete This Book From All Book Shelf ?';
+      const txinfo = 'Do You Want to Delete This Book From All The Book Shelf ?';
 
       openModalDialog(txinfo, 'delete', id);
     });
@@ -387,7 +395,9 @@ const loadDataStorage = (type, data = []) => {
     books = data;
   }
 
-  if (books === null || books === []) {
+  if (books === null) {
+    Utils.toggleToast('error', 'Book not found');
+  } else if (books.length === 0) {
     Utils.toggleToast('error', 'Book not found');
   } else {
     let htmlFavoriteShelf = '';

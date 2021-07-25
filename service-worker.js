@@ -4,7 +4,7 @@
 /* eslint-disable no-console */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'bookpwa-v1';
+const CACHE_NAME = 'bookpwa-v2';
 const urlsToCache = [
   '/',
   '/manifest.json',

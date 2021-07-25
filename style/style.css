@@ -153,10 +153,14 @@ main {
     position: relative;
 }
 
+.box-pseudo {
+    height: 60px;
+}
+
 .title-shelf {
     font-size: 13pt;
     margin: auto;
-    width: 200px;
+    width: 240px;
     padding: 3px;
     border-radius: 5px;
     color: white;
@@ -266,13 +270,12 @@ main {
     position: absolute;
     background-color: grey;
     top: 0;
-    bottom: 0;
     left: 0;
     right: 0;
     border-radius: 5px;
-    opacity: 0.9;
+    opacity: 1;
     display: none;
-    padding: 20px;
+    padding: 10px;
 }
 
 #form-title {
@@ -292,7 +295,6 @@ main {
 
 .form-group {
     text-align: left;
-    margin-bottom: 10px;
 }
 
 .form-label {
@@ -310,7 +312,7 @@ main {
     border: 0;
 }
 
-.form-input:focus, #txsearch:focus {
+.form-input:focus {
     background-color: var(--primeColor);
     color: white;
 }
@@ -322,9 +324,13 @@ main {
     margin-top: 10px;
 }
 
+.box-checkbox {
+    font-size: 13pt;
+}
+
 .form-checkbox {
-    width: 44px;
-    height: 44px;
+    width: 35px;
+    height: 35px;
     margin-right: 5px;
 }
 
@@ -446,53 +452,6 @@ footer {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-}
-
-/*
- * welcome screen
-*/
-
-#box-welcome {
-    width: 80%;
-    height: 96vh;
-    margin: auto;
-    background-color:white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-
-#title-welcome {
-    margin-bottom: 10px;
-}
-
-#box-table-welcome {
-    margin-top: 20px;
-    overflow-y: scroll;
-    height:88%;
-}
-
-#table-welcome {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#table-welcome thead {
-    background-color: teal;
-    color: white;
-}
-
-#table-welcome th {
-    text-align: center;
-}
-
-#table-welcome th, td {
-    padding: 5px;
-}
-
-.list-keterangan {
-    margin-left: 20px;
 }
 
 /*

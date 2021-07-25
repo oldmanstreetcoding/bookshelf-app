@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-alert */
 /* eslint-disable radix */
@@ -31,20 +32,33 @@ const getData = () => {
 };
 
 const saveData = (data, status) => {
-  let parsed = [data];
   const bookStorage = getData();
+  let parsed;
+  let nextStep;
 
   if (status === 'save') {
-    if (bookStorage !== null || bookStorage.length !== 0) {
+    if (bookStorage === null) {
+      parsed = [data];
+      nextStep = true;
+    } else if (bookStorage.length === 0) {
+      parsed = [data];
+      nextStep = true;
+    } else {
+      let nfound = 0;
       for (const book of bookStorage) {
         if (book.title.toLowerCase() === data.title.toLowerCase()
-        || book.author.toLowerCase() === data.author.toLowerCase()
-        || book.year.toString() === data.year.toLowerCase()
+        && book.author.toLowerCase() === data.author.toLowerCase()
+        && book.year === data.year
         ) {
-          Utils.toggleToast('error', 'Data has existed before.');
-        } else {
-          bookStorage.push(data);
+          nfound++;
         }
+      }
+
+      if (nfound === 0) {
+        bookStorage.push(data);
+        nextStep = true;
+      } else {
+        nextStep = false;
       }
 
       parsed = bookStorage;
@@ -64,21 +78,26 @@ const saveData = (data, status) => {
     bookStorage[arrId].iscomplete = data.iscomplete;
 
     parsed = bookStorage;
+    nextStep = true;
   }
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+  if (nextStep) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
 
-  DOM.loadDataStorage('all');
+    Utils.toggleToast('success', 'Data Has Updated Succesfully');
 
-  Utils.toggleToast('success', 'Data Has Updated Succesfully');
+    DOM.loadDataStorage('all');
 
-  document.getElementById('form-book').reset();
+    document.getElementById('form-book').reset();
 
-  if (status === 'save') {
-    const txinfo = 'Do You Want To Add Another Book ?';
-    DOM.openModalDialog(txinfo, 'addnewdata', 0);
+    if (status === 'save') {
+      const txinfo = 'Do You Want To Add Another Book ?';
+      DOM.openModalDialog(txinfo, 'addnewdata', 0);
+    } else {
+      Utils.toggleShowItem('box-form-input', false);
+    }
   } else {
-    Utils.toggleShowItem('box-form-input', false);
+    Utils.toggleToast('error', 'Data have existed before.');
   }
 };
 
