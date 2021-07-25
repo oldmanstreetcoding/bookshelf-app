@@ -3,7 +3,7 @@
 */
 
 :root {
-    --primeColor: #51C4D3;
+    --primeColor: teal;
 }
 
 * {
@@ -35,11 +35,11 @@ header {
 }
 
 #brand_title {
-    font-size: 1.8em;
+    font-size: 20pt;
     font-weight: bold;
 }
 
-#img-logo {
+#img-brand {
     margin-top: 10px;
     margin-bottom: -5px;
 }
@@ -49,7 +49,7 @@ header {
 */
 
 main {
-    width: 60%;
+    width: 100%;
     margin: auto;
     height: 95vh;
 }
@@ -66,12 +66,16 @@ main {
 #img-owner {
     border-radius: 50%;
     box-shadow:5px 5px 8px #888;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
 }
 
 #title-owner {
     margin-top: 5px;
     margin-bottom: 5px;
-    color: tomato
+    color: tomato;
+    font-size: 20pt;
 }
 
 #message-owner {
@@ -82,7 +86,7 @@ main {
 }
 
 .input-group {
-    width: 45vw;
+    width: 92%;
     display: table;
     border-collapse: collapse;
     margin: auto;
@@ -105,7 +109,7 @@ main {
     display: block;
     width: 100%;
     padding: 8px;
-    height: 40px;
+    height: 44px;
     border-radius: 5px;
     border: 2px solid var(--primeColor);
     text-align: center;
@@ -113,19 +117,24 @@ main {
     font-size: 11pt;
 }
 
-#img-add-book {
-    width: 40px;
-}
-
 #btn-add-book, .btn-book {
     padding: 0;
     border: none;
     background: none;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
 }
 
 #btn-add-book:hover, 
-.btn-book:hover {
+.btn-book:hover,
+#img-owner:hover {
     cursor: pointer;
+    top: -5px;
+}
+
+#img-add-book {
+    width: 44px;
 }
 
 /*
@@ -139,19 +148,15 @@ main {
     border: 2px solid var(--primeColor);
     padding-top: 15px;
     border-radius: 5px;
-    width: 76%;
+    width: 92%;
     background-color: #e8eff0;
     position: relative;
 }
 
-.glass-shelf {
-    margin-top: -20px;
-}
-
 .title-shelf {
     font-size: 13pt;
-    margin:auto;
-    width: 180px;
+    margin: auto;
+    width: 200px;
     padding: 3px;
     border-radius: 5px;
     color: white;
@@ -159,23 +164,21 @@ main {
 }
 
 .shelf {
-    width: 82%;
-    height: 135px;
+    width: 90%;
+    height: 100%;
     margin:auto;
     overflow: hidden;
     padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 5px;
 }
 
 .inner-shelf {
     overflow-x: scroll;
-    height: 125%;
     display: flex;
     flex-direction: row;
-    padding-left: 10px;
-    padding-right: 10px;
     gap: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: -10px;
 }
 
 .img-shelf {
@@ -190,42 +193,18 @@ main {
     display: grid;
     grid-template-columns: 10px 80px;
     width: 90px;
-    height: 115px;
+    height: 110px;
     border-radius: 5px;
     box-shadow: 3px 3px 3px #888;
     margin: auto;
     position: relative;
+    top: 0;
+    transition: top ease 0.4s;
 }
 
 .wrap-book:hover {
     box-shadow: 4px 4px 4px #888;
-}
-
-.btn-book-wrapper {
-    position: absolute;
-    background-color: grey;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-radius: 5px;
-    line-height: 120px;
-    padding: 5px;
-    display: none;
-}
-
-.btn-book-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    row-gap: 20px;
-    column-gap: 10px;
-    margin-top: 20px;
-    margin-left: 5px;
-}
-
-.img-btn-book {
-    width: 20px;
+    top: -5px;
 }
 
 .book-edge {
@@ -237,15 +216,46 @@ main {
 .book-cover {
     padding: 10px;
     color: white;
+    word-wrap: break-word;
 }
 
 .book-title {
-    height: 65px;
+    height: 60px;
     font-size: 11pt;
 }
 
 .book-author {
     font-size: 9pt;
+}
+
+.btn-book-wrapper {
+    position: absolute;
+    background-color: grey;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 5px;
+    display: none;
+}
+
+.btn-book-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 5px;
+    column-gap: 2px;
+    margin-top: 12px;
+    margin-left: 2px;
+}
+
+.btn-book {
+    width: 44px;
+    height: 44px;
+}
+
+.img-btn-book {
+    width: 25px;
 }
 
 /*
@@ -313,8 +323,8 @@ main {
 }
 
 .form-checkbox {
-    width: 30px;
-    height: 30px;
+    width: 44px;
+    height: 44px;
     margin-right: 5px;
 }
 
@@ -341,6 +351,10 @@ main {
     border: 0;
 }
 
+.btn-Form, .btn-confirm {
+    height: 44px;
+}
+
 .btn-Form:hover, .btn-confirm:hover {
     cursor: pointer;
     background-color: var(--primeColor);
@@ -365,7 +379,7 @@ footer {
     text-align: center;
     padding: 12px;
     color: white;
-    font-size: 13pt;
+    font-size: 12pt;
 }
 
 /*
@@ -381,7 +395,7 @@ footer {
     color: white;
     padding: 10px;
     border-radius: 10px;
-    font-size: 15pt;
+    font-size: 13pt;
     opacity: 0;
     transition: opacity 0.8s;
 }
@@ -418,6 +432,8 @@ footer {
 #title-dialog {
     text-align: center;
     margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 13pt;
 }
 
 .btn-confirm {
@@ -430,4 +446,93 @@ footer {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
+}
+
+/*
+ * welcome screen
+*/
+
+#box-welcome {
+    width: 80%;
+    height: 96vh;
+    margin: auto;
+    background-color:white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+#title-welcome {
+    margin-bottom: 10px;
+}
+
+#box-table-welcome {
+    margin-top: 20px;
+    overflow-y: scroll;
+    height:88%;
+}
+
+#table-welcome {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#table-welcome thead {
+    background-color: teal;
+    color: white;
+}
+
+#table-welcome th {
+    text-align: center;
+}
+
+#table-welcome th, td {
+    padding: 5px;
+}
+
+.list-keterangan {
+    margin-left: 20px;
+}
+
+/*
+ * responsive screen
+*/
+
+@media only screen and (min-width: 780px) {
+    .book-cover {
+        padding-top: 12px;
+        word-wrap: break-word;
+    }
+    
+}
+
+@media only screen and (min-width: 900px) {
+    main {
+        width: 85%
+    }
+
+    .shelf {
+        width: 85%;
+    }
+
+    .img-shelf {
+        width: 95%;
+    }
+
+    .wrap-book {
+        grid-template-columns: 10px 85px;
+        width: 95px;
+        height: 115px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    main {
+        width: 75%
+    }
+
+    .img-shelf {
+        width: 90%;
+    }
 }

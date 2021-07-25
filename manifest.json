@@ -1,0 +1,35 @@
+{
+    "name": "Welcome Book Lover",
+    "short_name": "Bookshelf",
+    "description": "Aplikasi Bookshelf",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#51C4D3",
+    "theme_color": "#51C4D3",
+    "icons": [
+        {
+            "src": "/assets/icons/logo512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/assets/icons/logo256.png",
+            "sizes": "256x256",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/assets/icons/logo128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/assets/icons/logo64.png",
+            "sizes": "64x64",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

@@ -16,17 +16,10 @@ const makeDialog = (info, type, id) => `<article id="box-dialog">
     <p id="title-dialog">${info}</p>
     <hr/>
     <div class="btn-group-confirm">
-      <button class="btn-confirm" id="btn-cancel-confirm">No</button>
+      <button class="btn-confirm btn-no-confirm" id="${id}-${type}-no">No</button>
       <button class="btn-confirm btn-ok-confirm" id="${id}-${type}">Yes</button>
     </div>
   </article>`;
-
-// const closeModalDialog = () => {
-//   const boxModal = document.querySelector('#boxmodal');
-//   boxModal.addEventListener('click', () => {
-//     Utils.toggleShowItem('boxmodal', false);
-//   });
-// };
 
 const openFormAddBook = () => {
   const btnAddBook = document.querySelector('#btn-add-book');
@@ -202,12 +195,21 @@ const agreeConfirm = () => {
 };
 
 const cancelConfirm = () => {
-  const btnCancel = document.querySelector('#btn-cancel-confirm');
-  btnCancel.addEventListener('click', (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    Utils.toggleShowItem('boxmodal', false);
-  });
+  const btnCancel = document.querySelectorAll('.btn-no-confirm');
+  for (const btn of btnCancel) {
+    btn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+
+      const confirmData = btn.id.split('-');
+      const type = confirmData[1];
+
+      if (type === 'addnewdata') {
+        Utils.toggleShowItem('box-form-input', false);
+      }
+      Utils.toggleShowItem('boxmodal', false);
+    });
+  }
 };
 
 const openModalDialog = (info, type, id) => {
@@ -361,7 +363,6 @@ const searchBook = () => {
     if (txsrc.length > 3 && txsrc.length % 2 === 0) {
       const books = DATA.getData();
       const foundBooks = [];
-      // let nfound = 0;
       for (const book of books) {
         if (book.title.toLowerCase().includes(txsrc.toLowerCase())
           || book.author.toLowerCase().includes(txsrc.toLowerCase())
@@ -386,7 +387,9 @@ const loadDataStorage = (type, data = []) => {
     books = data;
   }
 
-  if (books.length !== 0) {
+  if (books === null || books === []) {
+    Utils.toggleToast('error', 'Book not found');
+  } else {
     let htmlFavoriteShelf = '';
     let htmlHasReadShelf = '';
     let htmlUnReadShelf = '';
@@ -408,8 +411,6 @@ const loadDataStorage = (type, data = []) => {
     showBookGroupBtn();
 
     Utils.toggleToast('info', `${books.length} Books have found`);
-  } else {
-    Utils.toggleToast('error', 'Book not found');
   }
 };
 
@@ -420,6 +421,7 @@ const DOM = {
   submitFormAddBook,
   resetFormAddBook,
   loadDataStorage,
+  openModalDialog,
 };
 
 export default DOM;

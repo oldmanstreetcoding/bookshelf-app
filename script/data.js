@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-alert */
 /* eslint-disable radix */
 /* eslint-disable array-callback-return */
@@ -31,28 +32,38 @@ const getData = () => {
 
 const saveData = (data, status) => {
   let parsed = [data];
+  const bookStorage = getData();
+
   if (status === 'save') {
-    if (getData() !== null || getData().length !== 0) {
-      const books = getData();
-      books.push(data);
-      parsed = books;
+    if (bookStorage !== null || bookStorage.length !== 0) {
+      for (const book of bookStorage) {
+        if (book.title.toLowerCase() === data.title.toLowerCase()
+        || book.author.toLowerCase() === data.author.toLowerCase()
+        || book.year.toString() === data.year.toLowerCase()
+        ) {
+          Utils.toggleToast('error', 'Data has existed before.');
+        } else {
+          bookStorage.push(data);
+        }
+      }
+
+      parsed = bookStorage;
     }
   } else {
-    const upbooks = getData();
     let arrId;
-    upbooks.map((dataStorage, index) => {
+    bookStorage.map((dataStorage, index) => {
       if (dataStorage.id === parseInt(data.id)) {
         arrId = index;
       }
     });
 
-    upbooks[arrId].title = data.title;
-    upbooks[arrId].author = data.author;
-    upbooks[arrId].year = data.year;
-    upbooks[arrId].isfavorite = data.isfavorite;
-    upbooks[arrId].iscomplete = data.iscomplete;
+    bookStorage[arrId].title = data.title;
+    bookStorage[arrId].author = data.author;
+    bookStorage[arrId].year = data.year;
+    bookStorage[arrId].isfavorite = data.isfavorite;
+    bookStorage[arrId].iscomplete = data.iscomplete;
 
-    parsed = upbooks;
+    parsed = bookStorage;
   }
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
@@ -64,10 +75,8 @@ const saveData = (data, status) => {
   document.getElementById('form-book').reset();
 
   if (status === 'save') {
-    const strconfirm = confirm('Do You Want To Add Another Book ?');
-    if (!strconfirm) {
-      Utils.toggleShowItem('box-form-input', false);
-    }
+    const txinfo = 'Do You Want To Add Another Book ?';
+    DOM.openModalDialog(txinfo, 'addnewdata', 0);
   } else {
     Utils.toggleShowItem('box-form-input', false);
   }
