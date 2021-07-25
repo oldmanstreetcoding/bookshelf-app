@@ -24,26 +24,20 @@
     <div id="main_wrapper">
 
         <header>
+
+            <!-- custom element app brand -->
             <app-brand></app-brand>
+
         </header>
 
         <main id="body-content">
     
             <section id="box-hero">
+                <!-- custom element app hero -->
                 <app-hero></app-hero>
-                <div class="input-group">
-                    <div class="input-group-area">
-                        <form id="form-search" action="#">
-                            <input id="txsearch" type="text" placeholder="Search by title, author or year ...">
-                        </form>
-                    </div>
-                    <div class="input-group-icon">
-                        <button id="btn-add-book" title="Add Book">
-                            <img id="img-add-book" src="assets/icons/plus.png" alt="addbook" />
-                        </button>
-                    </div>
-                </div>
-                <!-- <app-search></app-search> -->
+
+                <!-- custom element app search book -->
+                <app-search></app-search>
             </section>
 
             <section id="box-shelf">
@@ -121,12 +115,15 @@
 
         </main>
 
+        <!-- custom element app footer -->
         <app-footer></app-footer>
 
+        <!-- custom element app notify -->
         <app-notify></app-notify>
 
     </div>
 
+    <!-- custom element modal dialog box -->
     <app-modal></app-modal>
 
     <script src="script/index.js" type="module"></script>

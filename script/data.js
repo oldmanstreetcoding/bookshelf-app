@@ -8,12 +8,12 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable import/extensions */
 /* eslint-disable valid-typeof */
-// import DOM from './dom.js';
 import DOM from './dom.js';
 import Utils from './utils.js';
 
 const STORAGE_KEY = 'BOOK_SHELF';
 
+// check if browser support localStorage //
 const isStorageExist = () => {
   if (typeof (Storage) === undefined) {
     Utils.toggleToast('error', 'Your browser does not support local storage');
@@ -22,6 +22,7 @@ const isStorageExist = () => {
   return true;
 };
 
+// get data from localStorage //
 const getData = () => {
   if (isStorageExist) {
     const serializedData = localStorage.getItem(STORAGE_KEY);
@@ -31,6 +32,12 @@ const getData = () => {
   return null;
 };
 
+// set data to localStorage //
+const setData = (data) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+};
+
+// save data to localStorage //
 const saveData = (data, status) => {
   const bookStorage = getData();
   let parsed;
@@ -82,7 +89,7 @@ const saveData = (data, status) => {
   }
 
   if (nextStep) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+    setData(parsed);
 
     Utils.toggleToast('success', 'Data Has Updated Succesfully');
 
@@ -101,11 +108,15 @@ const saveData = (data, status) => {
   }
 };
 
+// delete data in localStorage //
+const deleteData = () => localStorage.removeItem(STORAGE_KEY);
+
 const DATA = {
   isStorageExist,
   getData,
   saveData,
-  STORAGE_KEY,
+  deleteData,
+  setData,
 };
 
 export default DATA;

@@ -12,6 +12,7 @@ import Utils from './utils.js';
 
 const formBook = document.getElementById('form-book');
 
+// make html dialog book //
 const makeDialog = (info, type, id) => `<article id="box-dialog">
     <p id="title-dialog">${info}</p>
     <hr/>
@@ -21,6 +22,7 @@ const makeDialog = (info, type, id) => `<article id="box-dialog">
     </div>
   </article>`;
 
+// make html book list //
 const makeBook = (book) => {
   const id = book.id.toString();
   const index = parseInt(id.charAt(id.length - 1));
@@ -66,6 +68,7 @@ const makeBook = (book) => {
             </div>`;
 };
 
+// show form add new book //
 const openFormAddBook = () => {
   const btnAddBook = document.querySelector('#btn-add-book');
   btnAddBook.addEventListener('click', () => {
@@ -74,6 +77,7 @@ const openFormAddBook = () => {
   });
 };
 
+// close form add new book //
 const closeFormAddBook = () => {
   const btnCancel = document.querySelector('#btnCancel');
   btnCancel.addEventListener('click', () => {
@@ -83,12 +87,14 @@ const closeFormAddBook = () => {
   });
 };
 
+// reset form add new book //
 const resetFormAddBook = () => {
   formBook.addEventListener('reset', () => {
     document.getElementById('id').value = '';
   });
 };
 
+// get all form input value //
 const getFormValue = () => {
   const formValues = document.querySelectorAll('.form-value');
   const formData = {};
@@ -110,6 +116,7 @@ const getFormValue = () => {
   return formData;
 };
 
+// submit form add new book //
 const submitFormAddBook = () => {
   formBook.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -120,6 +127,7 @@ const submitFormAddBook = () => {
   });
 };
 
+// show form edit book //
 const showUpdateBook = () => {
   const updateBooks = document.querySelectorAll('.btn-update');
 
@@ -154,6 +162,7 @@ const showUpdateBook = () => {
   }
 };
 
+// eksekusi perpindahan rak buku favorite //
 const okFavoriteBook = (id) => {
   const books = DATA.getData();
 
@@ -168,13 +177,14 @@ const okFavoriteBook = (id) => {
 
   books[arrId].isfavorite = !favStatus;
 
-  localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
+  DATA.setData(books);
 
   loadDataStorage('all');
 
   Utils.toggleToast('success', favStatus ? 'Remove Favorite Book Succesfully' : 'Set New Favorite Book');
 };
 
+// eksekusi perpindahan rak buku selesai //
 const okCompleteBook = (id) => {
   const books = DATA.getData();
 
@@ -189,19 +199,20 @@ const okCompleteBook = (id) => {
 
   books[arrId].iscomplete = !comStatus;
 
-  localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
+  DATA.setData(books);
 
   loadDataStorage('all');
 
   Utils.toggleToast('success', comStatus ? 'The Book Has Moved to UnRead Shelf Succesfully' : 'The Book Has Moved to HasRead Shelf Succesfully');
 };
 
+// eksekusi hapus buku //
 const okDeleteBook = (id) => {
   const books = DATA.getData();
   const ndata = books.length;
 
   if (ndata === 1) {
-    localStorage.removeItem(DATA.STORAGE_KEY);
+    DATA.deleteData();
     location.reload();
   } else {
     let arrId;
@@ -213,7 +224,7 @@ const okDeleteBook = (id) => {
 
     books.splice(arrId, 1);
 
-    localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
+    DATA.setData(books);
 
     loadDataStorage('all');
   }
@@ -221,6 +232,7 @@ const okDeleteBook = (id) => {
   Utils.toggleToast('success', 'Data Has Deleted Succesfully');
 };
 
+// handle agree button in user confirmation dialog box  //
 const agreeConfirm = () => {
   const btnConfirm = document.querySelectorAll('.btn-ok-confirm');
   for (const btn of btnConfirm) {
@@ -247,6 +259,7 @@ const agreeConfirm = () => {
   }
 };
 
+// handle cancel button in user confirmation dialog box  //
 const cancelConfirm = () => {
   const btnCancel = document.querySelectorAll('.btn-no-confirm');
   for (const btn of btnCancel) {
@@ -265,6 +278,7 @@ const cancelConfirm = () => {
   }
 };
 
+// open user confirmation dialog box  //
 const openModalDialog = (info, type, id) => {
   Utils.toggleShowItem('boxmodal', true);
   document.querySelector('#boxmodal').innerHTML = makeDialog(info, type, id);
@@ -274,6 +288,7 @@ const openModalDialog = (info, type, id) => {
   agreeConfirm();
 };
 
+// handle button delete  //
 const deleteBook = () => {
   const deleteBooks = document.querySelectorAll('.btn-delete');
 
@@ -291,6 +306,7 @@ const deleteBook = () => {
   }
 };
 
+// handle button complete  //
 const completeBook = () => {
   const completeBooks = document.querySelectorAll('.btn-complete');
 
@@ -313,6 +329,7 @@ const completeBook = () => {
   }
 };
 
+// handle favorite button //
 const favoriteBook = () => {
   const favBooks = document.querySelectorAll('.btn-favorite');
 
@@ -335,6 +352,7 @@ const favoriteBook = () => {
   }
 };
 
+// show group button at the book cover when it was hovered by user //
 const showBookGroupBtn = () => {
   const covers = document.querySelectorAll('.wrap-book');
 
@@ -363,6 +381,7 @@ const showBookGroupBtn = () => {
   showUpdateBook();
 };
 
+// load book list from localStorage//
 const loadDataStorage = (type, data = []) => {
   let books = null;
   if (type === 'all') {
@@ -400,6 +419,7 @@ const loadDataStorage = (type, data = []) => {
   }
 };
 
+// search book in localStorage //
 const searchBook = () => {
   Utils.focusInput('txsearch');
   const textSearch = document.querySelector('#txsearch');
