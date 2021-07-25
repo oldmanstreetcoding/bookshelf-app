@@ -8,7 +8,7 @@ class AppBrand extends HTMLElement {
     this.innerHTML = `<div id="header_wrapper">
                           <div id="header_brand">
                               <div id="brand_title">
-                                  <img id="img-brand" src="assets/icons/logo32.png" alt="logo"/> Bookshelf
+                                  <img id="img-brand" src="assets/icons/logo32.png" alt="logo"/> Readaholic
                               </div>
                           </div>
                       </div>`;

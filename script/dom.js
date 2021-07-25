@@ -21,6 +21,51 @@ const makeDialog = (info, type, id) => `<article id="box-dialog">
     </div>
   </article>`;
 
+const makeBook = (book) => {
+  const id = book.id.toString();
+  const index = parseInt(id.charAt(id.length - 1));
+  const bookColor = [
+    'green',
+    'tomato',
+    'lightseagreen',
+    'orange',
+    'plum',
+    'pink',
+    'lightblue',
+    'wheat',
+    'maroon',
+    'dodgerblue',
+  ];
+
+  const imgFav = book.isfavorite ? 'unlike' : 'like';
+  const imgCom = book.iscomplete ? 'unread' : 'read';
+
+  return `<div class="wrap-book" id="${book.id}" style="background-color: ${bookColor[index]}" tabindex="0">
+              <div class="book-edge"></div>
+              <div class="book-cover">
+                  <div class="book-title">${book.title}</div>
+                  <div class="book-author">${book.author}</div>
+              </div>
+              <div class="btn-book-wrapper" id="${book.id}-wrap">
+                  <div class="btn-book-group">
+                      <button class="btn-book btn-favorite" id="${book.id}-${imgFav}">
+                          <img class="img-btn-book" src="assets/icons/${imgFav}.png" title="${imgFav} This Book" alt="${imgFav}"/>
+                      </button>
+                      <button class="btn-book btn-complete" id="${book.id}-${imgCom}">
+                          <img class="img-btn-book" src="assets/icons/${imgCom}.png" title="${imgCom} This Book" alt="${imgCom}"/>
+                      </button>
+                      
+                      <button class="btn-book btn-update" id="${book.id}-update">
+                          <img class="img-btn-book" src="assets/icons/edit.png" title="Edit This Book" alt="edit"/>
+                      </button>
+                      <button class="btn-book btn-delete" id="${book.id}-delete">
+                          <img class="img-btn-book" src="assets/icons/delete.png" title="Delete This Book" alt="delete"/>
+                      </button>
+                  </div>
+              </div>
+            </div>`;
+};
+
 const openFormAddBook = () => {
   const btnAddBook = document.querySelector('#btn-add-book');
   btnAddBook.addEventListener('click', () => {
@@ -318,75 +363,6 @@ const showBookGroupBtn = () => {
   showUpdateBook();
 };
 
-const makeBook = (book) => {
-  const id = book.id.toString();
-  const index = parseInt(id.charAt(id.length - 1));
-  const bookColor = [
-    'green',
-    'tomato',
-    'lightseagreen',
-    'orange',
-    'plum',
-    'pink',
-    'lightblue',
-    'wheat',
-    'maroon',
-    'dodgerblue',
-  ];
-
-  const imgFav = book.isfavorite ? 'unlike' : 'like';
-  const imgCom = book.iscomplete ? 'unread' : 'read';
-
-  return `<div class="wrap-book" id="${book.id}" style="background-color: ${bookColor[index]}" tabindex="0">
-            <div class="book-edge"></div>
-            <div class="book-cover">
-                <div class="book-title">${book.title}</div>
-                <div class="book-author">${book.author}</div>
-            </div>
-            <div class="btn-book-wrapper" id="${book.id}-wrap">
-                <div class="btn-book-group">
-                    <button class="btn-book btn-favorite" id="${book.id}-${imgFav}">
-                        <img class="img-btn-book" src="assets/icons/${imgFav}.png" title="${imgFav} This Book" alt="${imgFav}"/>
-                    </button>
-                    <button class="btn-book btn-complete" id="${book.id}-${imgCom}">
-                        <img class="img-btn-book" src="assets/icons/${imgCom}.png" title="${imgCom} This Book" alt="${imgCom}"/>
-                    </button>
-                    
-                    <button class="btn-book btn-update" id="${book.id}-update">
-                        <img class="img-btn-book" src="assets/icons/edit.png" title="Edit This Book" alt="edit"/>
-                    </button>
-                    <button class="btn-book btn-delete" id="${book.id}-delete">
-                        <img class="img-btn-book" src="assets/icons/delete.png" title="Delete This Book" alt="delete"/>
-                    </button>
-                </div>
-            </div>
-          </div>`;
-};
-
-const searchBook = () => {
-  const textSearch = document.querySelector('#txsearch');
-  textSearch.addEventListener('input', () => {
-    const txsrc = textSearch.value;
-
-    if (txsrc.length > 3 && txsrc.length % 2 === 0) {
-      const books = DATA.getData();
-      const foundBooks = [];
-      for (const book of books) {
-        if (book.title.toLowerCase().includes(txsrc.toLowerCase())
-          || book.author.toLowerCase().includes(txsrc.toLowerCase())
-          || book.year.toString().includes(txsrc.toLowerCase())
-        ) {
-          foundBooks.push(book);
-        }
-      }
-
-      loadDataStorage('search', foundBooks);
-    } else if (txsrc.length === 0) {
-      loadDataStorage('all');
-    }
-  });
-};
-
 const loadDataStorage = (type, data = []) => {
   let books = null;
   if (type === 'all') {
@@ -422,6 +398,31 @@ const loadDataStorage = (type, data = []) => {
 
     Utils.toggleToast('info', `${books.length} Books have found`);
   }
+};
+
+const searchBook = () => {
+  Utils.focusInput('txsearch');
+  const textSearch = document.querySelector('#txsearch');
+  textSearch.addEventListener('input', () => {
+    const txsrc = textSearch.value;
+
+    if (txsrc.length > 3 && txsrc.length % 2 === 0) {
+      const books = DATA.getData();
+      const foundBooks = [];
+      for (const book of books) {
+        if (book.title.toLowerCase().includes(txsrc.toLowerCase())
+          || book.author.toLowerCase().includes(txsrc.toLowerCase())
+          || book.year.toString().includes(txsrc.toLowerCase())
+        ) {
+          foundBooks.push(book);
+        }
+      }
+
+      loadDataStorage('search', foundBooks);
+    } else if (txsrc.length === 0) {
+      loadDataStorage('all');
+    }
+  });
 };
 
 const DOM = {

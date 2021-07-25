@@ -1,6 +1,6 @@
 {
     "name": "Welcome Book Lover",
-    "short_name": "Bookshelf",
+    "short_name": "Readaholic",
     "description": "Aplikasi Bookshelf",
     "start_url": "/index.html",
     "display": "standalone",
