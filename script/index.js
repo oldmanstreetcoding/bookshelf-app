@@ -5,11 +5,12 @@ import Utils from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   Utils.focusInput('txsearch');
+  DOM.searchBook();
 
   DOM.openFormAddBook();
   DOM.closeFormAddBook();
   DOM.resetFormAddBook();
   DOM.submitFormAddBook();
 
-  DOM.loadDataStorage();
+  DOM.loadDataStorage('all');
 });

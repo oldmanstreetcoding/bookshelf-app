@@ -32,7 +32,7 @@ const getData = () => {
 const saveData = (data, status) => {
   let parsed = [data];
   if (status === 'save') {
-    if (getData() !== null) {
+    if (getData() !== null || getData().length !== 0) {
       const books = getData();
       books.push(data);
       parsed = books;
@@ -57,7 +57,7 @@ const saveData = (data, status) => {
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
 
-  DOM.loadDataStorage();
+  DOM.loadDataStorage('all');
 
   Utils.toggleToast('success', 'Data Has Updated Succesfully');
 

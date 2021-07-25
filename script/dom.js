@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-plusplus */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable array-callback-return */
@@ -123,7 +124,7 @@ const deleteBook = () => {
 
         localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
 
-        loadDataStorage();
+        loadDataStorage('all');
 
         Utils.toggleToast('success', 'Data Has Deleted Succesfully');
       }
@@ -141,7 +142,7 @@ const completeBook = () => {
     book.addEventListener('click', (event) => {
       const bookId = book.id.split('-');
       const id = bookId[0];
-      const comStatus = bookId[1] === 'read1';
+      const comStatus = bookId[1] === 'unread';
       let nextStep = true;
 
       if (comStatus) {
@@ -165,9 +166,9 @@ const completeBook = () => {
 
         localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
 
-        loadDataStorage();
+        loadDataStorage('all');
 
-        Utils.toggleToast('success', comStatus ? 'Remove HasRead Book Succesfully' : 'Set New HasRead Book');
+        Utils.toggleToast('success', comStatus ? 'The Book Has Moved to UnRead Shelf Succesfully' : 'The Book Has Moved to HasRead Shelf Succesfully');
       }
 
       event.stopPropagation();
@@ -183,7 +184,7 @@ const favoriteBook = () => {
     book.addEventListener('click', (event) => {
       const bookId = book.id.split('-');
       const id = bookId[0];
-      const favStatus = bookId[1] === 'love1';
+      const favStatus = bookId[1] === 'unlike';
       let nextStep = true;
 
       if (favStatus) {
@@ -207,7 +208,7 @@ const favoriteBook = () => {
 
         localStorage.setItem(DATA.STORAGE_KEY, JSON.stringify(books));
 
-        loadDataStorage();
+        loadDataStorage('all');
 
         Utils.toggleToast('success', favStatus ? 'Remove Favorite Book Succesfully' : 'Set New Favorite Book');
       }
@@ -262,8 +263,8 @@ const makeBook = (book) => {
     'dodgerblue',
   ];
 
-  const imgFav = book.isfavorite ? 'love1' : 'love2';
-  const imgCom = book.iscomplete ? 'read1' : 'read2';
+  const imgFav = book.isfavorite ? 'unlike' : 'like';
+  const imgCom = book.iscomplete ? 'unread' : 'read';
 
   return `<div class="wrap-book" id="${book.id}" style="background-color: ${bookColor[index]}" tabindex="0">
             <div class="book-edge"></div>
@@ -274,30 +275,62 @@ const makeBook = (book) => {
             <div class="btn-book-wrapper" id="${book.id}-wrap">
                 <div class="btn-book-group">
                     <button class="btn-book btn-favorite" id="${book.id}-${imgFav}">
-                        <img class="img-btn-book" src="assets/icons/${imgFav}.png"/>
+                        <img class="img-btn-book" src="assets/icons/${imgFav}.png" title="${imgFav} This Book" alt="${imgFav}"/>
                     </button>
                     <button class="btn-book btn-complete" id="${book.id}-${imgCom}">
-                        <img class="img-btn-book" src="assets/icons/${imgCom}.png"/>
+                        <img class="img-btn-book" src="assets/icons/${imgCom}.png" title="${imgCom} This Book" alt="${imgCom}"/>
                     </button>
                     
                     <button class="btn-book btn-update" id="${book.id}-update">
-                        <img class="img-btn-book" src="assets/icons/edit.png"/>
+                        <img class="img-btn-book" src="assets/icons/edit.png" title="Edit This Book" alt="edit"/>
                     </button>
                     <button class="btn-book btn-delete" id="${book.id}-delete">
-                        <img class="img-btn-book" src="assets/icons/delete.png"/>
+                        <img class="img-btn-book" src="assets/icons/delete.png" title="Delete This Book" alt="delete"/>
                     </button>
                 </div>
             </div>
           </div>`;
 };
 
-const loadDataStorage = () => {
-  if (DATA.getData() !== null) {
+const searchBook = () => {
+  const textSearch = document.querySelector('#txsearch');
+  textSearch.addEventListener('input', () => {
+    const txsrc = textSearch.value;
+
+    if (txsrc.length > 3 && txsrc.length % 2 === 0) {
+      const books = DATA.getData();
+      const foundBooks = [];
+      // let nfound = 0;
+      for (const book of books) {
+        if (book.title.toLowerCase().includes(txsrc.toLowerCase())
+          || book.author.toLowerCase().includes(txsrc.toLowerCase())
+          || book.year.toString().includes(txsrc.toLowerCase())
+        ) {
+          foundBooks.push(book);
+        }
+      }
+
+      loadDataStorage('search', foundBooks);
+    } else if (txsrc.length === 0) {
+      loadDataStorage('all');
+    }
+  });
+};
+
+const loadDataStorage = (type, data = []) => {
+  let books = null;
+  if (type === 'all') {
+    books = DATA.getData();
+  } else {
+    books = data;
+  }
+
+  if (books.length !== 0) {
     let htmlFavoriteShelf = '';
     let htmlHasReadShelf = '';
     let htmlUnReadShelf = '';
 
-    for (const book of DATA.getData()) {
+    for (const book of books) {
       if (book.isfavorite) {
         htmlFavoriteShelf += makeBook(book);
       } else if (book.iscomplete) {
@@ -312,10 +345,15 @@ const loadDataStorage = () => {
     document.getElementById('hasread-shelf').innerHTML = htmlHasReadShelf;
 
     showBookGroupBtn();
+
+    Utils.toggleToast('info', `${books.length} Books have found`);
+  } else {
+    Utils.toggleToast('error', 'Book not found');
   }
 };
 
 const DOM = {
+  searchBook,
   openFormAddBook,
   closeFormAddBook,
   submitFormAddBook,

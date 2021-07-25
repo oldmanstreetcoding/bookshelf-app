@@ -39,6 +39,11 @@ header {
     font-weight: bold;
 }
 
+#img-logo {
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+
 /*
  * main
 */
@@ -105,7 +110,7 @@ main {
     border: 2px solid var(--primeColor);
     text-align: center;
     background-color: #e8eff0;
-    font-size: 12pt;
+    font-size: 11pt;
 }
 
 #img-add-book {
@@ -159,6 +164,7 @@ main {
     margin:auto;
     overflow: hidden;
     padding: 10px;
+    margin-top: 10px;
     margin-bottom: 5px;
 }
 
