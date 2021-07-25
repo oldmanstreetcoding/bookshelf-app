@@ -4,8 +4,8 @@
     "description": "Aplikasi Bookshelf",
     "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#51C4D3",
-    "theme_color": "#51C4D3",
+    "background_color": "#008080",
+    "theme_color": "#008080",
     "icons": [
         {
             "src": "/assets/icons/logo512.png",
